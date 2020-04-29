@@ -1,8 +1,13 @@
 
+// Set login form to be in the middle of page.
+:host {
+  margin: auto;
+}
+
 .mat-form-field {
-    width: 100%;
-    min-width: 300px;
-  }
+  width: 100%;
+  min-width: 300px;
+}
 
 mat-card-title,
 mat-card-content {
