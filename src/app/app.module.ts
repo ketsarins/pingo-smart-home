@@ -19,7 +19,9 @@ import { CoreMaterialModule } from './core/material.module';
     BrowserAnimationsModule,
     CoreMaterialModule
   ],
-  providers: [],
+  providers: [
+    { provide: Window, useValue: window }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
