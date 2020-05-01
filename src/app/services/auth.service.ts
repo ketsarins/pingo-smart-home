@@ -4,16 +4,23 @@ import { IAuthToken } from '../login/auth-token.model';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { IUser } from '../user/user.model';
 
+const STORE_TOKEN: string ='token';
+const STORE_USER: string = 'user_profile';
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
   // Create subject and public observable of user profile data
-  private userProfileSubject = new BehaviorSubject<IUser>(null);
+  private userProfileSubject = new BehaviorSubject<IUser>(JSON.parse(this.$window.sessionStorage.getItem(STORE_TOKEN)));
   userProfile = this.userProfileSubject.asObservable();
 
   constructor(private $window: Window) { }
+
+  get currentUser(): IUser {
+    return this.userProfileSubject.value;
+  }
+
   /**
    * Log in user
    */
@@ -26,14 +33,16 @@ export class AuthService {
       expiresIn: 123456
     };
     //TODO:: Should not store sensitive session data in browser storage due to lack of security.
-    this.$window.sessionStorage.setItem('token', JSON.stringify(response))
+    this.$window.sessionStorage.setItem(STORE_TOKEN, JSON.stringify(response))
 
     // TODO:: Call API to get user???
     let currentUser: IUser = {
       firstName: 'Pingo',
       lastName: 'Mingo'
     }
+
     this.userProfileSubject.next(currentUser);
+    this.$window.sessionStorage.setItem(STORE_USER, JSON.stringify(currentUser));
   }
 
   /**
@@ -49,7 +58,7 @@ export class AuthService {
   // /**
   //  * Checking if user is login in easy way
   //  */
-  get isAuthenticated(): boolean{
+  get isAuthenticated(): boolean {
     // TODO:: Should not check from storage
     return !this.userProfileSubject.value;
   }

@@ -2,16 +2,16 @@
     <mat-card>
         <mat-card-title class="pingo-card-title">Pingo Smart Home</mat-card-title>
         <mat-card-content>
-            <form>
+            <form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)" autocomplete="off" novalidate>
                 <p>
                     <mat-form-field>
-                        <input type="text" matInput placeholder="Username" formControlName="username">
+                        <input type="text" matInput placeholder="Username" formControlName="username" required>
                     </mat-form-field>
                 </p>
 
                 <p>
                     <mat-form-field>
-                        <input type="password" matInput placeholder="Password" formControlName="password">
+                        <input type="password" matInput placeholder="Password" formControlName="password" required autocomplete="off">
                     </mat-form-field>
                 </p>
 

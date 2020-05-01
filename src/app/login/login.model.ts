@@ -2,7 +2,7 @@ export interface ILogin {
     /**
      * This is the OAuth 2.0 grant type that highly-trusted apps use to access an API.
      */
-    grant_type: 'password', 
+    grant_type?: 'password', 
 
     /**
      * Credentials - username
@@ -17,10 +17,10 @@ export interface ILogin {
     /**
      * The application's Client ID
      */
-    client_id: string,
+    client_id?: string,
 
     /**
      * The application's Client Secret
      */
-    client_secret: string
+    client_secret?: string
 }
