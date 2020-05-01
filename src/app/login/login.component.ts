@@ -15,9 +15,16 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder
     , private authService: AuthService
-    , private router: Router) { }
+    , private router: Router) {
+
+  }
 
   ngOnInit(): void {
+    // redirect to dashboard if user already logged in
+    if (this.authService.currentUser) {
+      this.router.navigate(['/']);
+    }
+
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
